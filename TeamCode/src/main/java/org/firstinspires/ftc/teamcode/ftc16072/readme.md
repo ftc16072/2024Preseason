@@ -1,3 +1,3 @@
 # List of team members
 * Coach Alan
-* 
+* Joshua Smith
