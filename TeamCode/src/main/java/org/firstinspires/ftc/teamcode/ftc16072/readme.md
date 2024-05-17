@@ -2,3 +2,4 @@
 * Coach Alan
 * Joshua Smith
 * Shreyas Thota
+* Rebecca Smith
