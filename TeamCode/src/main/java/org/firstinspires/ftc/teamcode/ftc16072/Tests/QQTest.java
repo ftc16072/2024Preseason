@@ -3,14 +3,14 @@ package org.firstinspires.ftc.teamcode.ftc16072.Tests;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
 abstract public class QQTest {
-    private String description;
+    private String name;
 
-    QQTest(String description) {
-        this.description = description;
+    QQTest(String name) {
+        this.name = name;
     }
 
-    public String getDescription() {
-        return description;
+    public String getName() {
+        return name;
     }
 
     public abstract void run(boolean on, Telemetry telemetry);
