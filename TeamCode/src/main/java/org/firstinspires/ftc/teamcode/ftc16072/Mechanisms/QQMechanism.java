@@ -10,7 +10,7 @@ abstract public class QQMechanism {
     public abstract void init(HardwareMap hwMap);
 
     public abstract List<QQTest> getTests();
-    public String name(){
+    public String getName(){
         return this.getClass().getSimpleName();
     }
 

@@ -14,7 +14,10 @@ public class TestGyro extends QQTest{
 
     @Override
     public void run(boolean on, Telemetry telemetry) {
-
+        telemetry.addData(getName(), gyro.getRobotYawPitchRollAngles());
+        if(on){
+            gyro.resetYaw();
+        }
 
     }
 }
