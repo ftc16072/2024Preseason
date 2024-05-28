@@ -9,7 +9,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 import org.firstinspires.ftc.teamcode.ftc16072.Tests.QQTest;
 import org.firstinspires.ftc.teamcode.ftc16072.Tests.TestGyro;
 
-import java.util.Arrays;
+
 import java.util.Collections;
 import java.util.List;
 
@@ -21,13 +21,13 @@ public class ControlHub extends QQMechanism{
 
         final double xRotationDegrees = 0;
         final double yRotationDegrees = 0;
-        final double zRotation = 0;
+        final double zRotationDegrees = 0;
 
         Orientation hubRotation =
-                RevHubOrientationOnRobot.xyzOrientation(xRotationDegrees,yRotationDegrees,zRotation);
+                RevHubOrientationOnRobot.xyzOrientation(xRotationDegrees,yRotationDegrees,zRotationDegrees);
         RevHubOrientationOnRobot orientationOnRobot = new RevHubOrientationOnRobot(hubRotation);
 
-        gyro.initialize()
+        //gyro.initialize();
 
 
         }
