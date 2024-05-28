@@ -3,4 +3,5 @@
 * Joshua Smith
 * Shreyas Thota
 * Rebecca Smith
+* Ritika Rajagopali
 * Kavya Boinepally
