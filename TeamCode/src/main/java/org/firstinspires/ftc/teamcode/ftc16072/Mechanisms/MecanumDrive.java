@@ -15,16 +15,16 @@ public class MecanumDrive extends QQMechanism{
     DcMotor frontRightMotor;
     DcMotor backLeftMotor;
     DcMotor backRightMotor;
-
     double speedMultiplier = 1.0;
 
 
     @Override
     public void init(HardwareMap hwMap) {
-        frontLeftMotor = hwMap.get(DcMotor.class, "frontLeftMotor");
-        frontRightMotor = hwMap.get(DcMotor.class, "frontRightMotor");
-        backLeftMotor = hwMap.get(DcMotor.class, "backLeftMotor");
-        backRightMotor = hwMap.get(DcMotor.class,"backRightMotor");
+        frontLeftMotor = hwMap.get(DcMotor.class, "front_left_motor");
+        frontRightMotor = hwMap.get(DcMotor.class, "front_right_motor");
+        backLeftMotor = hwMap.get(DcMotor.class, "back_left_motor");
+        backRightMotor = hwMap.get(DcMotor.class,"back_right_motor");
+        //device names are set to match the simulator
 
         frontLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
         backLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -64,10 +64,10 @@ public class MecanumDrive extends QQMechanism{
         backLeftPower *= speedMultiplier;
         backRightPower *= speedMultiplier;
 
-        frontLeftPower = Math.max(Math.abs(frontLeftPower), maxSpeed);
-        frontRightPower = Math.max(Math.abs(frontRightPower), maxSpeed);
-        backLeftPower = Math.max(Math.abs(backLeftPower), maxSpeed);
-        backRightPower = Math.max(Math.abs(backRightPower), maxSpeed);
+        maxSpeed = Math.max(Math.abs(frontLeftPower), maxSpeed);
+        maxSpeed = Math.max(Math.abs(frontRightPower), maxSpeed);
+        maxSpeed = Math.max(Math.abs(backLeftPower), maxSpeed);
+        maxSpeed = Math.max(Math.abs(backRightPower), maxSpeed);
 
         backLeftPower /= maxSpeed;
         backRightPower /= maxSpeed;
@@ -78,6 +78,8 @@ public class MecanumDrive extends QQMechanism{
         frontLeftMotor.setPower(frontLeftPower);
         backRightMotor.setPower(backRightPower);
         backLeftMotor.setPower(backLeftPower);
+
+
     }
 }
 
