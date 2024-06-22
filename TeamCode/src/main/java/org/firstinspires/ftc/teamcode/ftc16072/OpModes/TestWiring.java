@@ -37,12 +37,6 @@ public class TestWiring extends QQOpMode {
                 currentMechanism = 0;
             }
         }
-        if(gamepad1.dpad_right && !wasRight){
-            currentTest += 1;
-            if(currentTest>=testList.size()){
-                currentTest = 0;
-            }
-        }
 
         if(gamepad1.dpad_down && !wasDown){
             currentTest = 0;
@@ -51,10 +45,17 @@ public class TestWiring extends QQOpMode {
                 currentMechanism = mechanismList.size()-1;
             }
         }
+        testList = mechanismList.get(currentMechanism).getTests();
         if(gamepad1.dpad_left && !wasLeft){
             currentTest -= 1;
             if(currentTest < 0){
                 currentTest = testList.size()-1;
+            }
+        }
+        if(gamepad1.dpad_right && !wasRight){
+            currentTest += 1;
+            if(currentTest>=testList.size()){
+                currentTest = 0;
             }
         }
         wasDown = gamepad1.dpad_down;
