@@ -16,6 +16,12 @@ public class MecanumDrive extends QQMechanism{
     DcMotor backLeftMotor;
     DcMotor backRightMotor;
     double speedMultiplier = 1.0;
+    public enum Speed {
+        SLOW,
+        NORMAL,
+        FAST,
+        TURBO
+    }
 
 
     @Override
@@ -33,6 +39,22 @@ public class MecanumDrive extends QQMechanism{
         for (DcMotor motor : motors){
             motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             motor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        }
+    }
+    public void setSpeed(Speed speed) {
+        switch(speed){
+            case NORMAL:
+                speedMultiplier= 0.5;
+                break;
+            case SLOW :
+                speedMultiplier= 0.25;
+                break;
+            case FAST:
+                speedMultiplier= 0.75;
+                break;
+            case TURBO:
+                speedMultiplier= 1;
+                break;
         }
     }
 
