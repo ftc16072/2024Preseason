@@ -9,6 +9,6 @@ public class RobotRelativeDrive extends QQOpMode{
 
     @Override
     public void loop() {
-        robot.MecanumDrive.move(-gamepad1.left_stick_y,gamepad1.left_stick_x,gamepad1.right_stick_x);
+        robot.mecanumDrive.move(-gamepad1.left_stick_y,gamepad1.left_stick_x,gamepad1.right_stick_x);
     }
 }

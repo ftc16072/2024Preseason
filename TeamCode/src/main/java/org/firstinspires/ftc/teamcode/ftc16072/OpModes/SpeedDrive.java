@@ -11,14 +11,14 @@ public class SpeedDrive extends QQOpMode{
     @Override
     public void loop() {
         if(gamepad1.dpad_left){
-            robot.MecanumDrive.setSpeed(MecanumDrive.Speed.NORMAL);
+            robot.mecanumDrive.setSpeed(MecanumDrive.Speed.NORMAL);
         } else if (gamepad1.dpad_right) {
-            robot.MecanumDrive.setSpeed(MecanumDrive.Speed.FAST);
+            robot.mecanumDrive.setSpeed(MecanumDrive.Speed.FAST);
         } else if (gamepad1.dpad_down) {
-            robot.MecanumDrive.setSpeed(MecanumDrive.Speed.SLOW);
+            robot.mecanumDrive.setSpeed(MecanumDrive.Speed.SLOW);
         } else if (gamepad1.dpad_up) {
-            robot.MecanumDrive.setSpeed(MecanumDrive.Speed.TURBO);
+            robot.mecanumDrive.setSpeed(MecanumDrive.Speed.TURBO);
         }
-        robot.MecanumDrive.move(-gamepad1.left_stick_y,gamepad1.left_stick_x,gamepad1.right_stick_x);
+        robot.mecanumDrive.move(-gamepad1.left_stick_y,gamepad1.left_stick_x,gamepad1.right_stick_x);
     }
 }

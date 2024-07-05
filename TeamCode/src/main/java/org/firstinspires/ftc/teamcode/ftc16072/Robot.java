@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.ftc16072;
 
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
+import org.firstinspires.ftc.teamcode.ftc16072.Mechanisms.Arm;
 import org.firstinspires.ftc.teamcode.ftc16072.Mechanisms.ControlHub;
 import org.firstinspires.ftc.teamcode.ftc16072.Mechanisms.MecanumDrive;
 import org.firstinspires.ftc.teamcode.ftc16072.Mechanisms.QQMechanism;
@@ -11,20 +12,21 @@ import java.util.List;
 
 
 public class Robot {
-    public ControlHub ControlHub;
-    public MecanumDrive MecanumDrive;
+    public ControlHub controlHub;
+    public MecanumDrive mecanumDrive;
+    public Arm arm;
     List<QQMechanism> mechanisms;
 
     public Robot() {
-        MecanumDrive = new MecanumDrive();
-        ControlHub = new ControlHub();
+        mecanumDrive = new MecanumDrive();
+        controlHub = new ControlHub();
+        arm = new Arm();
 
         mechanisms = Arrays.asList(
-                ControlHub,
-                MecanumDrive
-        );
+                controlHub,
+                mecanumDrive,
+                arm);
     }
-
     public void init(HardwareMap hwMap) {
         for (QQMechanism mechanism : mechanisms) {
             mechanism.init(hwMap);
