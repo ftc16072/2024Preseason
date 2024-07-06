@@ -19,18 +19,12 @@ public class ControlHub extends QQMechanism{
     public void init(HardwareMap hwMap) {
         gyro = hwMap.get(IMU.class,"imu");
 
-        final double xRotationDegrees = 0;
-        final double yRotationDegrees = 0;
-        final double zRotationDegrees = 0;
+        RevHubOrientationOnRobot orientationOnRobot =
+                new RevHubOrientationOnRobot(RevHubOrientationOnRobot.LogoFacingDirection.RIGHT,
+                RevHubOrientationOnRobot.UsbFacingDirection.UP);
 
-        Orientation hubRotation =
-                RevHubOrientationOnRobot.xyzOrientation(xRotationDegrees,yRotationDegrees,zRotationDegrees);
-        RevHubOrientationOnRobot orientationOnRobot = new RevHubOrientationOnRobot(hubRotation);
-
-        //gyro.initialize();
-
-
-        }
+        gyro.initialize(new IMU.Parameters(orientationOnRobot));
+    }
 
     @Override
     public List<QQTest> getTests() {
