@@ -5,6 +5,7 @@ import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.IMU;
 
+import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.teamcode.ftc16072.Tests.QQTest;
 import org.firstinspires.ftc.teamcode.ftc16072.Tests.TestGyro;
 
@@ -23,6 +24,10 @@ public class ControlHub extends QQMechanism{
                 RevHubOrientationOnRobot.UsbFacingDirection.UP);
 
         gyro.initialize(new IMU.Parameters(orientationOnRobot));
+    }
+
+    public double getYaw(AngleUnit angleUnit){
+        return gyro.getRobotYawPitchRollAngles().getYaw(angleUnit);
     }
 
     @Override
