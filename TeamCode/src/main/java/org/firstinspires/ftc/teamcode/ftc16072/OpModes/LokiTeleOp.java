@@ -8,7 +8,7 @@ public class LokiTeleOp extends QQOpMode{
     static final int INTAKE_POSITION = 0;
     static final int ROW_HEIGHT_IN_TICKS = 500;
     static final int MAX_SCORE_POSITION = 8500;
-    static final int MIN_SCORE_POSITION = 4000;
+    static final int MIN_SCORE_POSITION = 6000;
     int desiredPosition = 0;
     int scorePosition = 7500;
     boolean dpadUpWasPressed;
