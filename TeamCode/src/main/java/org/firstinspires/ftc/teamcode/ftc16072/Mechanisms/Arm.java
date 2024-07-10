@@ -40,7 +40,7 @@ public class Arm extends QQMechanism{
         return !hallSensor.getState();
     }
 
-    public void armToGround(){;//make a node once behaviour trees are implemented
+    public void armToGround(){//make a node once behaviour trees are implemented
         if (isArmDown()){
             armMotor.setPower(0.0);
         }else {
