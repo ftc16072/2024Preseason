@@ -19,11 +19,12 @@ public class Arm extends QQMechanism{
     public static final double WRIST_UP = 1;
     public static final double kP = 0.01;
     public static final double MAX_SPEED = 1;
-    public static final double ARM_TOLERANCE_THRESHOLD = 20;
-    int desiredPosition;
-    double armPower;
-    int currentPos;
-    int error;
+    public static final double ARM_TOLERANCE_THRESHOLD = 100;
+    int positionOffset = 0;
+    public int desiredPosition;
+    public double armPower;
+    public int currentPos;
+    public int error;
     DcMotor armMotor;
     Servo wristServo;
     DigitalChannel hallSensor;
@@ -52,13 +53,16 @@ public class Arm extends QQMechanism{
         this.desiredPosition = desiredPosition;
 
     }
+    public void resetArmPosition(){
+        positionOffset = armMotor.getCurrentPosition();
+    }
 
     @Override
     public void update(){
-        currentPos = armMotor.getCurrentPosition();
+        currentPos = armMotor.getCurrentPosition() - positionOffset;
         error = desiredPosition - currentPos;
         armPower = error * kP;
-        armPower = Math.max(armPower, MAX_SPEED);
+        armPower = Math.signum(armPower)*Math.min(Math.abs(armPower), MAX_SPEED);
         if (Math.abs(error) < ARM_TOLERANCE_THRESHOLD){
             armMotor.setPower(0.0);
         }else {
