@@ -8,6 +8,7 @@ public class FieldRelativeDrive extends QQOpMode{
 
     @Override
     public void loop() {
+        telemetry.addData("hall", robot.arm.isArmDown());
         nav.driveFieldRelative(-gamepad1.left_stick_y,gamepad1.left_stick_x,gamepad1.right_stick_x);
     }
 }

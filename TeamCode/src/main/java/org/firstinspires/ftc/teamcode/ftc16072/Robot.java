@@ -32,6 +32,11 @@ public class Robot {
             mechanism.init(hwMap);
         }
     }
+    public void update(){
+        for(QQMechanism mechanism: mechanisms){
+            mechanism.update();
+        }
+    }
 
     public List<QQMechanism> getMechanisms() {
         return mechanisms;
