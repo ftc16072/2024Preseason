@@ -17,4 +17,9 @@ public abstract class QQOpMode extends OpMode {
         telemetry = new MultipleTelemetry(telemetry, FtcDashboard.getInstance().getTelemetry());
     }
 
+    @Override
+    public void loop(){
+        robot.update();
+    }
+
 }

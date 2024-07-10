@@ -15,8 +15,15 @@ import java.util.List;
 
 public class Arm extends QQMechanism{
     public static final double TEST_SPEED = 0.4;
-    public static final int WRIST_DOWN = 0;
-    public static final int WRIST_UP = 1;
+    public static final double WRIST_DOWN = 0;
+    public static final double WRIST_UP = 1;
+    public static final double kP = 0.01;
+    public static final double MAX_SPEED = 1;
+    public static final double ARM_TOLERANCE_THRESHOLD = 20;
+    int desiredPosition;
+    double armPower;
+    int currentPos;
+    int error;
     DcMotor armMotor;
     Servo wristServo;
     DigitalChannel hallSensor;
@@ -26,10 +33,39 @@ public class Arm extends QQMechanism{
         wristServo = hwMap.get(Servo.class,"wrist_servo");
         hallSensor = hwMap.get(DigitalChannel.class,"arm_hall");
         hallSensor.setMode(DigitalChannel.Mode.INPUT);
+        armMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        armMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
     }
     public boolean isArmDown(){
         return !hallSensor.getState();
     }
+
+    public void armToGround(){;//make a node once behaviour trees are implemented
+        if (isArmDown()){
+            armMotor.setPower(0.0);
+        }else {
+            armMotor.setPower(-0.5);
+        }
+    }
+
+    public void setDesiredPosition(int desiredPosition){
+        this.desiredPosition = desiredPosition;
+
+    }
+
+    @Override
+    public void update(){
+        currentPos = armMotor.getCurrentPosition();
+        error = desiredPosition - currentPos;
+        armPower = error * kP;
+        armPower = Math.max(armPower, MAX_SPEED);
+        if (Math.abs(error) < ARM_TOLERANCE_THRESHOLD){
+            armMotor.setPower(0.0);
+        }else {
+            armMotor.setPower(armPower);
+        }
+    }
+
 
     @Override
     public List<QQTest> getTests() {
