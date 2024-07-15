@@ -30,6 +30,10 @@ public class ControlHub extends QQMechanism{
         return gyro.getRobotYawPitchRollAngles().getYaw(angleUnit);
     }
 
+    public void resetGyro(){
+        gyro.resetYaw();
+    }
+
     @Override
     public List<QQTest> getTests() {
         return Collections.singletonList(new TestGyro("Gyro", gyro));
