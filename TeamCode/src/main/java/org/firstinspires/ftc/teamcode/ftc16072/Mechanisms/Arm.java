@@ -28,6 +28,15 @@ public class Arm extends QQMechanism{
     DcMotor armMotor;
     Servo wristServo;
     DigitalChannel hallSensor;
+
+    static final double WRIST_INTAKE_POS = 0;
+    static final double WRIST_PLACING_POS = 0;
+    public final int INTAKE_POSITION = 0;
+    static final int ROW_HEIGHT_IN_TICKS = 500;
+    static final int MAX_SCORE_POSITION = 8500;
+    static final int MIN_SCORE_POSITION = 6000;
+    public int scorePosition = 7500;
+
     @Override
     public void init(HardwareMap hwMap) {
         armMotor = hwMap.get(DcMotor.class,"arm_motor");
@@ -69,7 +78,16 @@ public class Arm extends QQMechanism{
             armMotor.setPower(armPower);
         }
     }
-
+public void pixelRowUp() {
+    scorePosition -= ROW_HEIGHT_IN_TICKS;
+    scorePosition = Math.max(scorePosition, MIN_SCORE_POSITION);
+    desiredPosition = scorePosition;
+}
+public void pixelRowDown() {
+    scorePosition += ROW_HEIGHT_IN_TICKS;
+    scorePosition = Math.min(scorePosition, MAX_SCORE_POSITION);
+    desiredPosition = scorePosition;
+}
 
     @Override
     public List<QQTest> getTests() {

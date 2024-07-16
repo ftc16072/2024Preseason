@@ -5,14 +5,11 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 @TeleOp()
 public class LokiTeleOp extends QQOpMode{
-    static final int INTAKE_POSITION = 0;
-    static final int ROW_HEIGHT_IN_TICKS = 500;
-    static final int MAX_SCORE_POSITION = 8500;
-    static final int MIN_SCORE_POSITION = 6000;
-    int desiredPosition = 0;
-    int scorePosition = 7500;
+
     boolean dpadUpWasPressed;
     boolean dpadDownWasPressed;
+    int desiredPosition;
+
 
 
     @Override
@@ -28,26 +25,22 @@ public class LokiTeleOp extends QQOpMode{
         robot.arm.setDesiredPosition(desiredPosition);
         nav.driveFieldRelative(-gamepad1.left_stick_y,gamepad1.left_stick_x,
                 gamepad1.right_stick_x);
-        telemetry.addData("score position", scorePosition);
+        telemetry.addData("score position", robot.arm.scorePosition);
         telemetry.addData("current position", robot.arm.currentPos);
         telemetry.addData("desired position", robot.arm.desiredPosition);
         telemetry.addData("arm speed", robot.arm.armPower);
 
         if (gamepad1.b){
-            desiredPosition = scorePosition;
+            desiredPosition = robot.arm.scorePosition;
         } else if (gamepad1.a) {
-            desiredPosition = INTAKE_POSITION;
+            desiredPosition = robot.arm.INTAKE_POSITION;
         }
         if (gamepad1.dpad_up && !dpadUpWasPressed){
-            scorePosition -= ROW_HEIGHT_IN_TICKS;
-            scorePosition = Math.max(scorePosition, MIN_SCORE_POSITION);
+            robot.arm.pixelRowUp();
             dpadUpWasPressed = true;
-            desiredPosition = scorePosition;
         } else if (gamepad1.dpad_down && !dpadDownWasPressed) {
-            scorePosition += ROW_HEIGHT_IN_TICKS;
-            scorePosition = Math.min(scorePosition, MAX_SCORE_POSITION);
+            robot.arm.pixelRowDown();
             dpadDownWasPressed = true;
-            desiredPosition = scorePosition;
         }
         if (!gamepad1.dpad_up){
             dpadUpWasPressed = false;
