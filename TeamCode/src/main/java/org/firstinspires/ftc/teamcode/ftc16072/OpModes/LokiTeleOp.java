@@ -2,7 +2,6 @@ package org.firstinspires.ftc.teamcode.ftc16072.OpModes;
 
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-
 @TeleOp()
 public class LokiTeleOp extends QQOpMode{
 
@@ -37,9 +36,12 @@ public class LokiTeleOp extends QQOpMode{
         }
         if (gamepad1.dpad_up && !dpadUpWasPressed){
             robot.arm.pixelRowUp();
+            desiredPosition = robot.arm.scorePosition;
             dpadUpWasPressed = true;
+
         } else if (gamepad1.dpad_down && !dpadDownWasPressed) {
             robot.arm.pixelRowDown();
+            desiredPosition = robot.arm.scorePosition;
             dpadDownWasPressed = true;
         }
         if (!gamepad1.dpad_up){

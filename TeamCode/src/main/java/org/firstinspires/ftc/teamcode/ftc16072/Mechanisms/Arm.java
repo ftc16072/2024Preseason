@@ -81,12 +81,10 @@ public class Arm extends QQMechanism{
 public void pixelRowUp() {
     scorePosition -= ROW_HEIGHT_IN_TICKS;
     scorePosition = Math.max(scorePosition, MIN_SCORE_POSITION);
-    desiredPosition = scorePosition;
 }
 public void pixelRowDown() {
     scorePosition += ROW_HEIGHT_IN_TICKS;
     scorePosition = Math.min(scorePosition, MAX_SCORE_POSITION);
-    desiredPosition = scorePosition;
 }
 
     @Override
