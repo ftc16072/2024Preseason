@@ -22,6 +22,10 @@ public class Claw extends QQMechanism{
     ColorRangeSensor rightSensor;
     @Override
     public void init(HardwareMap hwMap) {
+        leftClaw = hwMap.get(Servo.class,"left_claw");
+        rightClaw = hwMap.get(Servo.class,"right_claw");
+        leftSensor = hwMap.get(ColorRangeSensor.class,"left_sensor");
+        rightSensor = hwMap.get(ColorRangeSensor.class, "right_sensor");
 
     }
 
