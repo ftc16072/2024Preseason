@@ -12,10 +12,10 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Claw extends QQMechanism{
-    double LEFT_OPEN_POSITION;
-    double RIGHT_OPEN_POSITION;
-    double LEFT_CLOSED_POSITION;
-    double RIGHT_CLOSED_POSITION;
+    double LEFT_OPEN_POSITION = 1.0;
+    double RIGHT_OPEN_POSITION = 0.0;
+    double LEFT_CLOSED_POSITION = 0.7;
+    double RIGHT_CLOSED_POSITION = 0.3;
     Servo leftClaw;
     Servo rightClaw;
     ColorRangeSensor leftSensor;
@@ -32,8 +32,8 @@ public class Claw extends QQMechanism{
     @Override
     public List<QQTest> getTests() {
         return Arrays.asList(
-                new TestServo("claw left", LEFT_OPEN_POSITION, LEFT_CLOSED_POSITION,leftClaw),
-                new TestServo("claw right", RIGHT_OPEN_POSITION, RIGHT_CLOSED_POSITION, rightClaw),
+                new TestServo("claw left", LEFT_CLOSED_POSITION, LEFT_OPEN_POSITION,leftClaw),
+                new TestServo("claw right", RIGHT_CLOSED_POSITION, RIGHT_OPEN_POSITION, rightClaw),
                 new TestColorRangeSensor("color left",leftSensor),
                 new TestColorRangeSensor("color right", rightSensor)
         );
