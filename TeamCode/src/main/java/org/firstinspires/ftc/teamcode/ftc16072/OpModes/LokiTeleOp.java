@@ -44,6 +44,9 @@ public class LokiTeleOp extends QQOpMode{
             desiredPosition = robot.arm.scorePosition;
             dpadDownWasPressed = true;
         }
+        if (desiredPosition == robot.arm.scorePosition){
+            robot.arm.setWristToScorePos();
+        }
         if (!gamepad1.dpad_up){
             dpadUpWasPressed = false;
         }

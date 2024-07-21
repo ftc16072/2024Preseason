@@ -10,6 +10,7 @@ import org.firstinspires.ftc.teamcode.ftc16072.Tests.QQTest;
 import org.firstinspires.ftc.teamcode.ftc16072.Tests.TestMotor;
 import org.firstinspires.ftc.teamcode.ftc16072.Tests.TestServo;
 import org.firstinspires.ftc.teamcode.ftc16072.Tests.TestSwitch;
+import org.opencv.core.Mat;
 
 import java.util.Arrays;
 import java.util.List;
@@ -100,13 +101,9 @@ public void setWristToScorePos(){
 
         double desiredWristPos = wristOffset + WRIST_PLACING_BOTTOM_POS;
 
-        if(desiredWristPos < WRIST_PLACING_BOTTOM_POS){
-            wristServo.setPosition(WRIST_PLACING_BOTTOM_POS);
-        }else if (desiredWristPos> WRIST_PLACING_TOP_POS){
-            wristServo.setPosition(WRIST_PLACING_TOP_POS);
-        }else{
-            wristServo.setPosition(desiredWristPos);
-        }
+        desiredWristPos = Math.min(desiredWristPos, WRIST_PLACING_BOTTOM_POS);
+        desiredWristPos = Math.max(desiredWristPos, WRIST_PLACING_TOP_POS);
+        wristServo.setPosition(desiredWristPos);
 }
 
 
