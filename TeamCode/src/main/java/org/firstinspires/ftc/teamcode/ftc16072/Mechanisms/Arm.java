@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.ftc16072.Mechanisms;
 
+import com.acmerobotics.dashboard.config.Config;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DigitalChannel;
 import com.qualcomm.robotcore.hardware.HardwareMap;
@@ -12,7 +13,7 @@ import org.firstinspires.ftc.teamcode.ftc16072.Tests.TestSwitch;
 
 import java.util.Arrays;
 import java.util.List;
-
+@Config
 public class Arm extends QQMechanism{
     public static final double TEST_SPEED = 0.4;
     public static final double WRIST_DOWN = 0;
@@ -30,14 +31,14 @@ public class Arm extends QQMechanism{
     DigitalChannel hallSensor;
 
 //TODO: change to real values
-    static final double WRIST_INTAKE_POS = 0;
-    static final double WRIST_TRANSFER_POS = 0;
-    static final double WRIST_PLACING_TOP_POS = 0;
-    static final double WRIST_PLACING_BOTTOM_POS = 0;
-    public final int INTAKE_POSITION = 0;
-    static final int ROW_HEIGHT_IN_TICKS = 500;
-    static final int MAX_SCORE_POSITION = 8500;
-    static final int MIN_SCORE_POSITION = 6000;
+    public static double WRIST_INTAKE_POS = 0;
+    public static double WRIST_TRANSFER_POS = 0;
+    public static double WRIST_PLACING_TOP_POS = 0;
+    public static double WRIST_PLACING_BOTTOM_POS = 0;
+    public static int INTAKE_POSITION = 350;
+    public static  int ROW_HEIGHT_IN_TICKS = 500;
+    public static int MAX_SCORE_POSITION = 7500;
+    public static int MIN_SCORE_POSITION = 5500;
     public int scorePosition = 7500;
 
     @Override
