@@ -19,6 +19,11 @@ public class LokiTeleOp extends QQOpMode{
         }
     }
     @Override
+    public void init_loop(){
+        robot.arm.armToGround();
+    }
+
+    @Override
     public void loop() {
         super.loop();
         robot.arm.setDesiredPosition(desiredPosition);

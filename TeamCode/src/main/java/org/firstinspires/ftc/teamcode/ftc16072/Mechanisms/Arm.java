@@ -50,6 +50,7 @@ public class Arm extends QQMechanism{
         armMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         armMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
     }
+
     public boolean isArmDown(){
         return !hallSensor.getState();
     }
@@ -57,6 +58,7 @@ public class Arm extends QQMechanism{
     public void armToGround(){//make a node once behaviour trees are implemented
         if (isArmDown()){
             armMotor.setPower(0.0);
+            resetArmPosition();
         }else {
             armMotor.setPower(-0.5);
         }
