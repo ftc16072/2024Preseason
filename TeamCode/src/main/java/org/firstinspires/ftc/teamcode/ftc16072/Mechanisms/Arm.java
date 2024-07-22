@@ -20,7 +20,7 @@ public class Arm extends QQMechanism{
     public static final double WRIST_UP = 1;
     public static final double kP = 0.01;
     public static final double MAX_SPEED = 1;
-    public static final double ARM_TOLERANCE_THRESHOLD = 100;
+    public static final double ARM_TOLERANCE_THRESHOLD = 10;
     int positionOffset = 0;
     public int desiredPosition;
     public double armPower;
