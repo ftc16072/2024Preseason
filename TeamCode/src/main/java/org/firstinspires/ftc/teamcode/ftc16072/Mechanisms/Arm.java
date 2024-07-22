@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.ftc16072.Mechanisms;
 
+import android.icu.text.Transliterator;
+
 import com.acmerobotics.dashboard.config.Config;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DigitalChannel;
@@ -36,6 +38,8 @@ public class Arm extends QQMechanism{
     public static double WRIST_PLACING_BOTTOM_POS = 0.35;
     public static double WRIST_PLACING_TOP_POS = 0.5;
     public static int INTAKE_POSITION = 385;
+    public static int CLIMBING_POSITION = 5500;
+    public static int CLIMBED_POSITION = 500;
     public static  int ROW_HEIGHT_IN_TICKS = 500;
     public static int MAX_SCORE_POSITION = 7500;
     public static int MIN_SCORE_POSITION = 5500;

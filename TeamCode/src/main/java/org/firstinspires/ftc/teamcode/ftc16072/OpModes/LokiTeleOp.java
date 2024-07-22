@@ -11,6 +11,7 @@ public class LokiTeleOp extends QQOpMode{
     boolean rightBumperWasPressed;
     boolean wasLeftPixelInReach;
     boolean wasRightPixelInReach;
+    boolean xWasPressed;
     int desiredPosition;
 
 
@@ -46,6 +47,17 @@ public class LokiTeleOp extends QQOpMode{
         //Driving
         nav.driveFieldRelative(-gamepad1.left_stick_y,gamepad1.left_stick_x,
                 gamepad1.right_stick_x); //TODO: add speed control
+
+        //Climb Support
+        if(gamepad1.x && !xWasPressed){
+            xWasPressed = true;
+            if(robot.arm.desiredPosition == robot.arm.CLIMBING_POSITION){
+                desiredPosition = robot.arm.CLIMBED_POSITION;
+            }else {
+                desiredPosition = robot.arm.CLIMBING_POSITION;
+                robot.arm.wristServo.setPosition(robot.arm.WRIST_TRANSFER_POS);
+            }
+        }
 
         //ARM CONTROL
         if (gamepad1.b){
@@ -116,6 +128,9 @@ public class LokiTeleOp extends QQOpMode{
         }
         if(!robot.claw.isRightPixelInReach()){
             wasRightPixelInReach = false;
+        }
+        if(!gamepad1.x){
+            xWasPressed = false;
         }
     }
 }
