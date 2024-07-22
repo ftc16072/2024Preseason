@@ -9,8 +9,10 @@ public class LokiTeleOp extends QQOpMode{
     boolean dpadDownWasPressed;
     boolean leftBumperWasPressed;
     boolean rightBumperWasPressed;
+    boolean wasLeftPixelInReach;
+    boolean wasRightPixelInReach;
+    boolean xWasPressed;
     int desiredPosition;
-    double wristPosition;
 
 
 
@@ -39,10 +41,23 @@ public class LokiTeleOp extends QQOpMode{
         telemetry.addData("arm speed", robot.arm.armPower);
         telemetry.addData("left servo",robot.claw.leftClaw.getPosition());
         telemetry.addData("right servo",robot.claw.rightClaw.getPosition());
+        telemetry.addData("isLeftClosed",robot.claw.isLeftClosed);
+        telemetry.addData("isRightClosed",robot.claw.isRightClosed);
 
         //Driving
         nav.driveFieldRelative(-gamepad1.left_stick_y,gamepad1.left_stick_x,
                 gamepad1.right_stick_x); //TODO: add speed control
+
+        //Climb Support
+        if(gamepad1.x && !xWasPressed){
+            xWasPressed = true;
+            if(robot.arm.desiredPosition == robot.arm.CLIMBING_POSITION){
+                desiredPosition = robot.arm.CLIMBED_POSITION;
+            }else {
+                desiredPosition = robot.arm.CLIMBING_POSITION;
+                robot.arm.wristServo.setPosition(robot.arm.WRIST_TRANSFER_POS);
+            }
+        }
 
         //ARM CONTROL
         if (gamepad1.b){
@@ -61,6 +76,11 @@ public class LokiTeleOp extends QQOpMode{
             desiredPosition = robot.arm.scorePosition;
             dpadDownWasPressed = true;
         }
+        if(gamepad1.dpad_left){
+            desiredPosition -= 10;
+        }else if(gamepad1.dpad_right) {
+            desiredPosition += 10;
+        }
 
         //WRIST CONTROL
         if (desiredPosition == robot.arm.scorePosition){
@@ -70,15 +90,24 @@ public class LokiTeleOp extends QQOpMode{
         }
 
         //CLAW CONTROL
-        if (gamepad1.right_bumper){
-            robot.claw.openLeft();
+        if (gamepad1.right_bumper ){
+                robot.claw.openLeft();
         }else if (robot.claw.isLeftPixelInReach()){
+            wasLeftPixelInReach = true;
             robot.claw.closeLeft();
+            if(!wasLeftPixelInReach) {
+                gamepad1.rumbleBlips(1);
+            }
         }
         if (gamepad1.left_bumper){
-            robot.claw.openRight();
+                robot.claw.openRight();
+
         }else if (robot.claw.isRightPixelInReach()){
+            wasRightPixelInReach = true;
             robot.claw.closeRight();
+            if(!wasRightPixelInReach) {
+                gamepad1.rumbleBlips(1);
+            }
         }
 
         //updating was pressed variables
@@ -93,6 +122,15 @@ public class LokiTeleOp extends QQOpMode{
         }
         if(!gamepad1.left_bumper){
             leftBumperWasPressed = false;
+        }
+        if(!robot.claw.isLeftPixelInReach()){
+            wasLeftPixelInReach = false;
+        }
+        if(!robot.claw.isRightPixelInReach()){
+            wasRightPixelInReach = false;
+        }
+        if(!gamepad1.x){
+            xWasPressed = false;
         }
     }
 }
