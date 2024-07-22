@@ -30,7 +30,7 @@ public class Arm extends QQMechanism{
     public Servo wristServo;
     DigitalChannel hallSensor;
 
-//TODO: change to real values
+
     public static double WRIST_INTAKE_POS = 0.92;
     public static double WRIST_TRANSFER_POS = 0.2;
     public static double WRIST_PLACING_BOTTOM_POS = 0.35;
