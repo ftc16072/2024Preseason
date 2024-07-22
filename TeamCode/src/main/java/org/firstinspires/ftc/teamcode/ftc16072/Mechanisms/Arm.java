@@ -51,6 +51,7 @@ public class Arm extends QQMechanism{
         armMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
     }
 
+
     public boolean isArmDown(){
         return !hallSensor.getState();
     }
