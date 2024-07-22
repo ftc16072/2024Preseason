@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.ftc16072.Mechanisms;
 
+import com.acmerobotics.dashboard.config.Config;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DigitalChannel;
 import com.qualcomm.robotcore.hardware.HardwareMap;
@@ -12,32 +13,32 @@ import org.firstinspires.ftc.teamcode.ftc16072.Tests.TestSwitch;
 
 import java.util.Arrays;
 import java.util.List;
-
+@Config
 public class Arm extends QQMechanism{
     public static final double TEST_SPEED = 0.4;
     public static final double WRIST_DOWN = 0;
     public static final double WRIST_UP = 1;
     public static final double kP = 0.01;
     public static final double MAX_SPEED = 1;
-    public static final double ARM_TOLERANCE_THRESHOLD = 100;
+    public static final double ARM_TOLERANCE_THRESHOLD = 10;
     int positionOffset = 0;
     public int desiredPosition;
     public double armPower;
     public int currentPos;
     public int error;
-    DcMotor armMotor;
-    Servo wristServo;
+    public DcMotor armMotor;
+    public Servo wristServo;
     DigitalChannel hallSensor;
 
 //TODO: change to real values
-    static final double WRIST_INTAKE_POS = 0;
-    static final double WRIST_TRANSFER_POS = 0;
-    static final double WRIST_PLACING_TOP_POS = 0;
-    static final double WRIST_PLACING_BOTTOM_POS = 0;
-    public final int INTAKE_POSITION = 0;
-    static final int ROW_HEIGHT_IN_TICKS = 500;
-    static final int MAX_SCORE_POSITION = 8500;
-    static final int MIN_SCORE_POSITION = 6000;
+    public static double WRIST_INTAKE_POS = 0.92;
+    public static double WRIST_TRANSFER_POS = 0.2;
+    public static double WRIST_PLACING_BOTTOM_POS = 0.35;
+    public static double WRIST_PLACING_TOP_POS = 0.5;
+    public static int INTAKE_POSITION = 385;
+    public static  int ROW_HEIGHT_IN_TICKS = 500;
+    public static int MAX_SCORE_POSITION = 7500;
+    public static int MIN_SCORE_POSITION = 5500;
     public int scorePosition = 7500;
 
     @Override
@@ -49,6 +50,7 @@ public class Arm extends QQMechanism{
         armMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         armMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
     }
+
     public boolean isArmDown(){
         return !hallSensor.getState();
     }
@@ -56,6 +58,7 @@ public class Arm extends QQMechanism{
     public void armToGround(){//make a node once behaviour trees are implemented
         if (isArmDown()){
             armMotor.setPower(0.0);
+            resetArmPosition();
         }else {
             armMotor.setPower(-0.5);
         }
@@ -99,13 +102,9 @@ public void setWristToScorePos(){
 
         double desiredWristPos = wristOffset + WRIST_PLACING_BOTTOM_POS;
 
-        if(desiredWristPos < WRIST_PLACING_BOTTOM_POS){
-            wristServo.setPosition(WRIST_PLACING_BOTTOM_POS);
-        }else if (desiredWristPos> WRIST_PLACING_TOP_POS){
-            wristServo.setPosition(WRIST_PLACING_TOP_POS);
-        }else{
-            wristServo.setPosition(desiredWristPos);
-        }
+        desiredWristPos = Math.max(desiredWristPos, WRIST_PLACING_BOTTOM_POS);
+        desiredWristPos = Math.min(desiredWristPos, WRIST_PLACING_TOP_POS);
+        wristServo.setPosition(desiredWristPos);
 }
 
 
