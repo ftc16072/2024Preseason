@@ -15,6 +15,7 @@ public class LokiTeleOp extends QQOpMode{
     boolean wasLeftPixelInReach;
     boolean wasRightPixelInReach;
     boolean xWasPressed;
+    boolean aWasPressed;
     int desiredPosition;
     final double TRIGGER_THRESHOLD = 0.3;
 
@@ -66,9 +67,18 @@ public class LokiTeleOp extends QQOpMode{
         //ARM CONTROL
         if (gamepad1.b){
             desiredPosition = robot.arm.scorePosition;
-        } else if (gamepad1.a) {
-            desiredPosition = robot.arm.INTAKE_POSITION;
-            robot.arm.wristServo.setPosition(robot.arm.WRIST_INTAKE_POS);
+        } else if (gamepad1.a && !aWasPressed) {
+            aWasPressed  = true;
+            if(desiredPosition != robot.arm.INTAKE_POSITION) {
+                desiredPosition = robot.arm.INTAKE_POSITION;
+                robot.arm.wristServo.setPosition(robot.arm.WRIST_TRANSFER_POS);
+                robot.claw.closeRight();
+                robot.claw.closeLeft();
+            }else {
+                robot.claw.openLeft();
+                robot.claw.openRight();
+                robot.arm.wristServo.setPosition(robot.arm.WRIST_INTAKE_POS);
+            }
         }
         if (gamepad1.dpad_up && !dpadUpWasPressed){
             dpadUpWasPressed = true;
@@ -142,6 +152,10 @@ public class LokiTeleOp extends QQOpMode{
         if(!gamepad1.x){
             xWasPressed = false;
         }
+        if(!gamepad1.a){
+            aWasPressed = false;
+        }
+
         //Drive Speed control
         if(gamepad1.right_trigger > TRIGGER_THRESHOLD & gamepad1.left_trigger > TRIGGER_THRESHOLD){
             robot.mecanumDrive.setSpeed(MecanumDrive.Speed.TURBO);
