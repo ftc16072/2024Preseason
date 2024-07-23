@@ -43,6 +43,7 @@ public class Arm extends QQMechanism{
     public static  int ROW_HEIGHT_IN_TICKS = 500;
     public static int MAX_SCORE_POSITION = 7500;
     public static int MIN_SCORE_POSITION = 5500;
+    public static final int SCORING_THRESHOLD = 5000;
     public int scorePosition = 7500;
 
     @Override

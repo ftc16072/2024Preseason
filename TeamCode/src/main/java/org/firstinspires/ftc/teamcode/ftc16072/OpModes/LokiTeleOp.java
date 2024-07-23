@@ -7,6 +7,7 @@ import org.firstinspires.ftc.teamcode.ftc16072.Mechanisms.MecanumDrive;
 @TeleOp()
 public class LokiTeleOp extends QQOpMode{
 
+    public static final int MANUAL_ADJUSTMENT = 50;
     boolean dpadUpWasPressed;
     boolean dpadDownWasPressed;
     boolean leftBumperWasPressed;
@@ -70,19 +71,22 @@ public class LokiTeleOp extends QQOpMode{
             robot.arm.wristServo.setPosition(robot.arm.WRIST_INTAKE_POS);
         }
         if (gamepad1.dpad_up && !dpadUpWasPressed){
-            robot.arm.pixelRowUp();
-            desiredPosition = robot.arm.scorePosition;
             dpadUpWasPressed = true;
-
+            if(desiredPosition > robot.arm.SCORING_THRESHOLD) {
+                robot.arm.pixelRowUp();
+                desiredPosition = robot.arm.scorePosition;
+            }else{
+                desiredPosition += MANUAL_ADJUSTMENT;
+            }
         } else if (gamepad1.dpad_down && !dpadDownWasPressed) {
-            robot.arm.pixelRowDown();
-            desiredPosition = robot.arm.scorePosition;
             dpadDownWasPressed = true;
-        }
-        if(gamepad1.dpad_left){
-            desiredPosition -= 10;
-        }else if(gamepad1.dpad_right) {
-            desiredPosition += 10;
+            if(desiredPosition > robot.arm.SCORING_THRESHOLD) {
+                robot.arm.pixelRowDown();
+                desiredPosition = robot.arm.scorePosition;
+                dpadDownWasPressed = true;
+            }else{
+            desiredPosition -= MANUAL_ADJUSTMENT;
+            }
         }
 
         //WRIST CONTROL
