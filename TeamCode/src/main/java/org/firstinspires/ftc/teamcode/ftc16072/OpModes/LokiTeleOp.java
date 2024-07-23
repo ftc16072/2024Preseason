@@ -2,6 +2,8 @@ package org.firstinspires.ftc.teamcode.ftc16072.OpModes;
 
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
+import org.firstinspires.ftc.teamcode.ftc16072.Mechanisms.MecanumDrive;
+
 @TeleOp()
 public class LokiTeleOp extends QQOpMode{
 
@@ -13,6 +15,7 @@ public class LokiTeleOp extends QQOpMode{
     boolean wasRightPixelInReach;
     boolean xWasPressed;
     int desiredPosition;
+    private final double triggerThreshold = 0.3;
 
 
 
@@ -131,6 +134,19 @@ public class LokiTeleOp extends QQOpMode{
         }
         if(!gamepad1.x){
             xWasPressed = false;
+        }
+        //Drive Speed control
+        if(gamepad1.right_trigger > triggerThreshold & gamepad1.left_trigger > triggerThreshold){
+            robot.mecanumDrive.setSpeed(MecanumDrive.Speed.TURBO);
+        }
+        else if(gamepad1.right_trigger > triggerThreshold){
+            robot.mecanumDrive.setSpeed(MecanumDrive.Speed.FAST);
+        }
+        else if(gamepad1.left_trigger> triggerThreshold){
+            robot.mecanumDrive.setSpeed(MecanumDrive.Speed.SLOW);
+        }
+        else if(!(gamepad1.left_trigger > triggerThreshold) & !(gamepad1.right_trigger > triggerThreshold)){
+            robot.mecanumDrive.setSpeed(MecanumDrive.Speed.NORMAL);
         }
     }
 }

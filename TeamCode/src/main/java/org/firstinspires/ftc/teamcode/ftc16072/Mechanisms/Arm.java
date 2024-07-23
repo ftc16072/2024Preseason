@@ -38,8 +38,8 @@ public class Arm extends QQMechanism{
     public static double WRIST_PLACING_BOTTOM_POS = 0.35;
     public static double WRIST_PLACING_TOP_POS = 0.5;
     public static int INTAKE_POSITION = 385;
-    public static int CLIMBING_POSITION = 5500;
-    public static int CLIMBED_POSITION = 500;
+    public static int CLIMBING_POSITION = 4800;
+    public static int CLIMBED_POSITION = 3000;
     public static  int ROW_HEIGHT_IN_TICKS = 500;
     public static int MAX_SCORE_POSITION = 7500;
     public static int MIN_SCORE_POSITION = 5500;
@@ -65,7 +65,7 @@ public class Arm extends QQMechanism{
             armMotor.setPower(0.0);
             resetArmPosition();
         }else {
-            armMotor.setPower(-0.5);
+            armMotor.setPower(-0.3);
         }
     }
 
