@@ -29,7 +29,7 @@ public class Arm extends QQMechanism{
     DigitalChannel hallSensor;
 
 
-    public final double WRIST_INTAKE_POS = 0.92;
+    public final double WRIST_INTAKE_POS = 0.95;
     public final double WRIST_TRANSFER_POS = 0.2;
     public final double WRIST_PLACING_BOTTOM_POS = 0.35;
     public final double WRIST_PLACING_TOP_POS = 0.5;
