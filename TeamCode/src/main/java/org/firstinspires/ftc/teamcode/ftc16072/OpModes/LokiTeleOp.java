@@ -16,7 +16,7 @@ public class LokiTeleOp extends QQOpMode{
     boolean wasRightPixelInReach;
     boolean xWasPressed;
     int desiredPosition;
-    private final double triggerThreshold = 0.3;
+    final double TRIGGER_THRESHOLD = 0.3;
 
 
 
@@ -140,16 +140,16 @@ public class LokiTeleOp extends QQOpMode{
             xWasPressed = false;
         }
         //Drive Speed control
-        if(gamepad1.right_trigger > triggerThreshold & gamepad1.left_trigger > triggerThreshold){
+        if(gamepad1.right_trigger > TRIGGER_THRESHOLD & gamepad1.left_trigger > TRIGGER_THRESHOLD){
             robot.mecanumDrive.setSpeed(MecanumDrive.Speed.TURBO);
         }
-        else if(gamepad1.right_trigger > triggerThreshold){
+        else if(gamepad1.right_trigger > TRIGGER_THRESHOLD){
             robot.mecanumDrive.setSpeed(MecanumDrive.Speed.FAST);
         }
-        else if(gamepad1.left_trigger> triggerThreshold){
+        else if(gamepad1.left_trigger> TRIGGER_THRESHOLD){
             robot.mecanumDrive.setSpeed(MecanumDrive.Speed.SLOW);
         }
-        else if(!(gamepad1.left_trigger > triggerThreshold) & !(gamepad1.right_trigger > triggerThreshold)){
+        else if(!(gamepad1.left_trigger > TRIGGER_THRESHOLD) & !(gamepad1.right_trigger > TRIGGER_THRESHOLD)){
             robot.mecanumDrive.setSpeed(MecanumDrive.Speed.NORMAL);
         }
     }
