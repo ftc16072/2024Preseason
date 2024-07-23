@@ -69,8 +69,8 @@ public class LokiTeleOp extends QQOpMode{
             desiredPosition = robot.arm.scorePosition;
         } else if (gamepad1.a && !aWasPressed) {
             aWasPressed  = true;
-            if(desiredPosition != robot.arm.INTAKE_POSITION) {
-                desiredPosition = robot.arm.INTAKE_POSITION;
+            if(desiredPosition != robot.arm.intakePosition) {
+                desiredPosition = robot.arm.intakePosition;
                 robot.arm.wristServo.setPosition(robot.arm.WRIST_TRANSFER_POS);
                 robot.claw.closeRight();
                 robot.claw.closeLeft();
@@ -86,7 +86,8 @@ public class LokiTeleOp extends QQOpMode{
                 robot.arm.pixelRowUp();
                 desiredPosition = robot.arm.scorePosition;
             }else{
-                desiredPosition += MANUAL_ADJUSTMENT;
+                robot.arm.intakePosition += MANUAL_ADJUSTMENT;
+                desiredPosition = robot.arm.intakePosition;
             }
         } else if (gamepad1.dpad_down && !dpadDownWasPressed) {
             dpadDownWasPressed = true;
@@ -95,7 +96,8 @@ public class LokiTeleOp extends QQOpMode{
                 desiredPosition = robot.arm.scorePosition;
                 dpadDownWasPressed = true;
             }else{
-            desiredPosition -= MANUAL_ADJUSTMENT;
+            robot.arm.intakePosition -= MANUAL_ADJUSTMENT;
+            desiredPosition = robot.arm.intakePosition;
             }
         }
 

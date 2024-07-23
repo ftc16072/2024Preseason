@@ -1,6 +1,5 @@
 package org.firstinspires.ftc.teamcode.ftc16072.Mechanisms;
 
-import com.acmerobotics.dashboard.config.Config;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DigitalChannel;
 import com.qualcomm.robotcore.hardware.HardwareMap;
@@ -13,7 +12,6 @@ import org.firstinspires.ftc.teamcode.ftc16072.Tests.TestSwitch;
 
 import java.util.Arrays;
 import java.util.List;
-@Config
 public class Arm extends QQMechanism{
     public static final double TEST_SPEED = 0.4;
     public static final double WRIST_DOWN = 0;
@@ -35,7 +33,7 @@ public class Arm extends QQMechanism{
     public final double WRIST_TRANSFER_POS = 0.2;
     public final double WRIST_PLACING_BOTTOM_POS = 0.35;
     public final double WRIST_PLACING_TOP_POS = 0.5;
-    public final int INTAKE_POSITION = 385;
+    public int intakePosition = 385;
     public final int CLIMBING_POSITION = 4800;
     public final int CLIMBED_POSITION = 3000;
     public final int ROW_HEIGHT_IN_TICKS = 500;
