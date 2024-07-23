@@ -113,7 +113,7 @@ public class LokiTeleOp extends QQOpMode{
                 robot.claw.openLeft();
         } else if (gamepad1.y) {
             robot.claw.closeLeft();
-        } else if (robot.claw.isLeftPixelInReach()){
+        } else if (robot.claw.isLeftPixelInReach() && !gamepad1.a){
             robot.claw.closeLeft();
             if(!wasLeftPixelInReach) {
                 wasLeftPixelInReach = true;
@@ -124,7 +124,7 @@ public class LokiTeleOp extends QQOpMode{
             robot.claw.openRight();
         } else if (gamepad1.y) {
             robot.claw.closeRight();
-        }else if (robot.claw.isRightPixelInReach()){
+        }else if (robot.claw.isRightPixelInReach()&& !gamepad1.a){
             robot.claw.closeRight();
             if(!wasRightPixelInReach) {
                 wasRightPixelInReach = true;
