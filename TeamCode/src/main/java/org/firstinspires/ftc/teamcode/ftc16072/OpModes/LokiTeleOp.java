@@ -7,7 +7,7 @@ import org.firstinspires.ftc.teamcode.ftc16072.Mechanisms.MecanumDrive;
 @TeleOp()
 public class LokiTeleOp extends QQOpMode{
 
-    public static final int MANUAL_ADJUSTMENT = 50;
+    public static final int MANUAL_ADJUSTMENT = 25;
     boolean dpadUpWasPressed;
     boolean dpadDownWasPressed;
     boolean leftBumperWasPressed;
