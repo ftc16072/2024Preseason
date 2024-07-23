@@ -17,7 +17,7 @@ public class Claw extends QQMechanism{
     final double LEFT_OPEN_POSITION = 1.0;
     final double RIGHT_OPEN_POSITION = 0.0;
     final double LEFT_CLOSED_POSITION = 0.7;
-    final double RIGHT_CLOSED_POSITION = 0.4;
+    final double RIGHT_CLOSED_POSITION = 0.35;
     public static double RIGHT_SENSOR_THRESHOLD_MM = 70; //placeholder number
     public static double LEFT_SENSOR_THRESHOLD_MM = 70; //placeholder
 
