@@ -7,6 +7,7 @@ import org.firstinspires.ftc.teamcode.ftc16072.Mechanisms.MecanumDrive;
 @TeleOp()
 public class LokiTeleOp extends QQOpMode{
 
+    public static final int MANUAL_ADJUSTMENT = 25;
     boolean dpadUpWasPressed;
     boolean dpadDownWasPressed;
     boolean leftBumperWasPressed;
@@ -14,8 +15,9 @@ public class LokiTeleOp extends QQOpMode{
     boolean wasLeftPixelInReach;
     boolean wasRightPixelInReach;
     boolean xWasPressed;
+    boolean aWasPressed;
     int desiredPosition;
-    private final double triggerThreshold = 0.3;
+    final double TRIGGER_THRESHOLD = 0.3;
 
 
 
@@ -65,24 +67,38 @@ public class LokiTeleOp extends QQOpMode{
         //ARM CONTROL
         if (gamepad1.b){
             desiredPosition = robot.arm.scorePosition;
-        } else if (gamepad1.a) {
-            desiredPosition = robot.arm.INTAKE_POSITION;
-            robot.arm.wristServo.setPosition(robot.arm.WRIST_INTAKE_POS);
+        } else if (gamepad1.a && !aWasPressed) {
+            aWasPressed  = true;
+            if(desiredPosition != robot.arm.intakePosition) {
+                desiredPosition = robot.arm.intakePosition;
+                robot.arm.wristServo.setPosition(robot.arm.WRIST_TRANSFER_POS);
+                robot.claw.closeRight();
+                robot.claw.closeLeft();
+            }else {
+                robot.claw.openLeft();
+                robot.claw.openRight();
+                robot.arm.wristServo.setPosition(robot.arm.WRIST_INTAKE_POS);
+            }
         }
         if (gamepad1.dpad_up && !dpadUpWasPressed){
-            robot.arm.pixelRowUp();
-            desiredPosition = robot.arm.scorePosition;
             dpadUpWasPressed = true;
-
+            if(desiredPosition > robot.arm.SCORING_THRESHOLD) {
+                robot.arm.pixelRowUp();
+                desiredPosition = robot.arm.scorePosition;
+            }else{
+                robot.arm.intakePosition += MANUAL_ADJUSTMENT;
+                desiredPosition = robot.arm.intakePosition;
+            }
         } else if (gamepad1.dpad_down && !dpadDownWasPressed) {
-            robot.arm.pixelRowDown();
-            desiredPosition = robot.arm.scorePosition;
             dpadDownWasPressed = true;
-        }
-        if(gamepad1.dpad_left){
-            desiredPosition -= 10;
-        }else if(gamepad1.dpad_right) {
-            desiredPosition += 10;
+            if(desiredPosition > robot.arm.SCORING_THRESHOLD) {
+                robot.arm.pixelRowDown();
+                desiredPosition = robot.arm.scorePosition;
+                dpadDownWasPressed = true;
+            }else{
+            robot.arm.intakePosition -= MANUAL_ADJUSTMENT;
+            desiredPosition = robot.arm.intakePosition;
+            }
         }
 
         //WRIST CONTROL
@@ -95,20 +111,23 @@ public class LokiTeleOp extends QQOpMode{
         //CLAW CONTROL
         if (gamepad1.right_bumper ){
                 robot.claw.openLeft();
-        }else if (robot.claw.isLeftPixelInReach()){
-            wasLeftPixelInReach = true;
+        } else if (gamepad1.y) {
+            robot.claw.closeLeft();
+        } else if (robot.claw.isLeftPixelInReach() && !gamepad1.a){
             robot.claw.closeLeft();
             if(!wasLeftPixelInReach) {
+                wasLeftPixelInReach = true;
                 gamepad1.rumbleBlips(1);
             }
         }
-        if (gamepad1.left_bumper){
-                robot.claw.openRight();
-
-        }else if (robot.claw.isRightPixelInReach()){
-            wasRightPixelInReach = true;
+        if (gamepad1.left_bumper) {
+            robot.claw.openRight();
+        } else if (gamepad1.y) {
+            robot.claw.closeRight();
+        }else if (robot.claw.isRightPixelInReach() && !gamepad1.a){
             robot.claw.closeRight();
             if(!wasRightPixelInReach) {
+                wasRightPixelInReach = true;
                 gamepad1.rumbleBlips(1);
             }
         }
@@ -135,17 +154,21 @@ public class LokiTeleOp extends QQOpMode{
         if(!gamepad1.x){
             xWasPressed = false;
         }
+        if(!gamepad1.a){
+            aWasPressed = false;
+        }
+
         //Drive Speed control
-        if(gamepad1.right_trigger > triggerThreshold & gamepad1.left_trigger > triggerThreshold){
+        if(gamepad1.right_trigger > TRIGGER_THRESHOLD & gamepad1.left_trigger > TRIGGER_THRESHOLD){
             robot.mecanumDrive.setSpeed(MecanumDrive.Speed.TURBO);
         }
-        else if(gamepad1.right_trigger > triggerThreshold){
+        else if(gamepad1.right_trigger > TRIGGER_THRESHOLD){
             robot.mecanumDrive.setSpeed(MecanumDrive.Speed.FAST);
         }
-        else if(gamepad1.left_trigger> triggerThreshold){
+        else if(gamepad1.left_trigger> TRIGGER_THRESHOLD){
             robot.mecanumDrive.setSpeed(MecanumDrive.Speed.SLOW);
         }
-        else if(!(gamepad1.left_trigger > triggerThreshold) & !(gamepad1.right_trigger > triggerThreshold)){
+        else if(!(gamepad1.left_trigger > TRIGGER_THRESHOLD) & !(gamepad1.right_trigger > TRIGGER_THRESHOLD)){
             robot.mecanumDrive.setSpeed(MecanumDrive.Speed.NORMAL);
         }
     }
