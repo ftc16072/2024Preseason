@@ -35,7 +35,7 @@ public class Arm extends QQMechanism{
     public final double WRIST_PLACING_TOP_POS = 0.5;
     public int intakePosition = 385;
     public final int CLIMBING_POSITION = 4800;
-    public final int CLIMBED_POSITION = 3000;
+    public final int CLIMBED_POSITION = 2000;
     public final int ROW_HEIGHT_IN_TICKS = 500;
     public final int MAX_SCORE_POSITION = 7500;
     public final int MIN_SCORE_POSITION = 5500;
