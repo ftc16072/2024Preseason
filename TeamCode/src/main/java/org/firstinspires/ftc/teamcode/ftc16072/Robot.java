@@ -6,6 +6,7 @@ import org.firstinspires.ftc.teamcode.ftc16072.Mechanisms.Arm;
 import org.firstinspires.ftc.teamcode.ftc16072.Mechanisms.Claw;
 import org.firstinspires.ftc.teamcode.ftc16072.Mechanisms.ControlHub;
 import org.firstinspires.ftc.teamcode.ftc16072.Mechanisms.MecanumDrive;
+import org.firstinspires.ftc.teamcode.ftc16072.Mechanisms.OpticalTrackingOdometrySensor;
 import org.firstinspires.ftc.teamcode.ftc16072.Mechanisms.QQMechanism;
 
 import java.util.Arrays;
@@ -17,6 +18,7 @@ public class Robot {
     public MecanumDrive mecanumDrive;
     public Arm arm;
     public Claw claw;
+    public OpticalTrackingOdometrySensor otos;
     List<QQMechanism> mechanisms;
 
     public Robot() {
@@ -24,12 +26,14 @@ public class Robot {
         controlHub = new ControlHub();
         arm = new Arm();
         claw = new Claw();
+        otos = new OpticalTrackingOdometrySensor();
 
         mechanisms = Arrays.asList(
                 controlHub,
                 mecanumDrive,
                 arm,
-                claw);
+                claw,
+                otos);
     }
     public void init(HardwareMap hwMap) {
         for (QQMechanism mechanism : mechanisms) {
