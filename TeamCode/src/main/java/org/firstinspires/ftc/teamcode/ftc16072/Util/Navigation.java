@@ -12,11 +12,13 @@ public class Navigation {
     static double TRANSLATIONAL_KI = 0;
     static double TRANSLATIONAL_KD = 0;
     static double TRANSLATIONAL_KF = 0;
+    static double TRANSLATIONAL_TOLERANCE_THRESHOLD = 0.5;
 
     static double ROTATIONAL_KP = 0.001;
     static double ROTATIONAL_KI = 0;
     static double ROTATIONAL_KD = 0;
     static double ROTATIONAL_KF = 0;
+    static double ROTATIONAL_TOLERANCE_THRESHOLD = 0.5;
 
     PIDFController PIDx, PIDy, PIDh;
 
@@ -43,14 +45,26 @@ public class Navigation {
 
     }
 
+    private boolean isWithinTolerance(double desired, double current, double tolerance){
+        double error = desired - current;
+        if(Math.abs(error) < tolerance){
+            return true;
+        }return false;
+    }
+
     public boolean driveToPositionIN(double desiredX,double desiredY,double desiredHeading){
         SparkFunOTOS.Pose2D currentPosition = robot.otos.getOtosPosition();
-
-        double errorX = desiredX - robot.otos.
-        double errorY;
-        double errorH;
-
-
-
+        if(isWithinTolerance(desiredX,currentPosition.x,TRANSLATIONAL_TOLERANCE_THRESHOLD) &&
+           isWithinTolerance(desiredY,currentPosition.y,TRANSLATIONAL_TOLERANCE_THRESHOLD)&&
+           isWithinTolerance(desiredHeading, currentPosition.h,ROTATIONAL_TOLERANCE_THRESHOLD)) {
+            double forwardSpeed = PIDx.calculate(desiredX, currentPosition.x);
+            double strafeRightSpeed = PIDy.calculate(desiredY, currentPosition.y);
+            double rotateCWSpeed = PIDh.calculate(desiredHeading, currentPosition.h);
+            driveFieldRelative(forwardSpeed,strafeRightSpeed,rotateCWSpeed);
+            return false;
+        }else {
+            driveFieldRelative(0,0,0);
+            return true;
+        }
     }
 }

@@ -28,7 +28,7 @@ public class PIDFController {
         double derivative = (error-lastError)/timer.seconds();
         sumErrors += error * timer.seconds();
 
-        double result = (error*kP) + (sumErrors*kI) + (error - lastError)*kD + kF;
+        double result = (error*kP) + (sumErrors*kI) + (derivative*kD) + kF;
 
         timer.reset();
         lastError = error;
