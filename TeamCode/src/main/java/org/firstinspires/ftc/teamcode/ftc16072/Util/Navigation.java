@@ -22,6 +22,8 @@ public class Navigation {
 
     PIDFController PIDx, PIDy, PIDh;
 
+    double lastX, lastY, lastH;
+
     public Navigation(Robot robot){
         this.robot = robot;
         PIDx = new PIDFController(TRANSLATIONAL_KP,TRANSLATIONAL_KI,TRANSLATIONAL_KD,TRANSLATIONAL_KF);
@@ -45,18 +47,24 @@ public class Navigation {
 
     }
 
-    private boolean isWithinTolerance(double desired, double current, double tolerance){
+    private boolean notWithinTolerance(double desired, double current, double tolerance){
         double error = desired - current;
-        if(Math.abs(error) < tolerance){
-            return true;
-        }return false;
+        return !(Math.abs(error) < tolerance);
     }
 
     public boolean driveToPositionIN(double desiredX,double desiredY,double desiredHeading){
+        if((desiredX != lastX) || (desiredY != lastY) || (desiredHeading != lastH)){
+            lastX = desiredX;
+            lastY = desiredY;
+            lastH = desiredHeading;
+            PIDx.reset();
+            PIDy.reset();
+            PIDh.reset();
+        }
         SparkFunOTOS.Pose2D currentPosition = robot.otos.getOtosPosition();
-        if(isWithinTolerance(desiredX,currentPosition.x,TRANSLATIONAL_TOLERANCE_THRESHOLD) &&
-           isWithinTolerance(desiredY,currentPosition.y,TRANSLATIONAL_TOLERANCE_THRESHOLD)&&
-           isWithinTolerance(desiredHeading, currentPosition.h,ROTATIONAL_TOLERANCE_THRESHOLD)) {
+        if(notWithinTolerance(desiredX,currentPosition.x,TRANSLATIONAL_TOLERANCE_THRESHOLD) ||
+           notWithinTolerance(desiredY,currentPosition.y,TRANSLATIONAL_TOLERANCE_THRESHOLD)||
+           notWithinTolerance(desiredHeading, currentPosition.h,ROTATIONAL_TOLERANCE_THRESHOLD)) {
             double forwardSpeed = PIDx.calculate(desiredX, currentPosition.x);
             double strafeRightSpeed = PIDy.calculate(desiredY, currentPosition.y);
             double rotateCWSpeed = PIDh.calculate(desiredHeading, currentPosition.h);
