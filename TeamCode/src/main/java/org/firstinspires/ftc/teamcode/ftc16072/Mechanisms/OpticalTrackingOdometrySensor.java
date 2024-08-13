@@ -15,14 +15,15 @@ public class OpticalTrackingOdometrySensor extends QQMechanism{
     SparkFunOTOS otos;
     @Override
     public void init(HardwareMap hwMap) {
-        otos = hwMap.get(SparkFunOTOS.class,"otos");
+        otos = hwMap.get(SparkFunOTOS.class,"sensor_otos"); //called this for virtual robot
         otos.setAngularUnit(AngleUnit.DEGREES);
         otos.setLinearUnit(DistanceUnit.INCH);
         otos.calibrateImu();
         SparkFunOTOS.Pose2D offset = new SparkFunOTOS.Pose2D(4,0,0);
         otos.setOffset(offset);
+        otos.resetTracking();
     }
-    public void setGetOtosPosition(double x,double y,double h){
+    public void setOtosPosition(double x, double y, double h){
         SparkFunOTOS.Pose2D position = new SparkFunOTOS.Pose2D(x,y,h);
         otos.setPosition(position);
     }
