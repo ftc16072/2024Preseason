@@ -5,3 +5,4 @@
 * Rebecca Smith
 * Ritika Rajagopali
 * Kavya Boinepally
+* Mahin Waghray
