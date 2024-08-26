@@ -6,5 +6,3 @@
 * Ritika Rajagopali
 * Kavya Boinepally
 * Mahin Waghray
-
-Change change change
