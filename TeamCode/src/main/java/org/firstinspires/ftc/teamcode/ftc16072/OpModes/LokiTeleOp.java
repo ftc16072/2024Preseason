@@ -20,7 +20,6 @@ public class LokiTeleOp extends QQOpMode{
     final double TRIGGER_THRESHOLD = 0.3;
 
 
-
     @Override
     public void init(){
         super.init();

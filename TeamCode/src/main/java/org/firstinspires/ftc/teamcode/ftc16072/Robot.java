@@ -31,8 +31,8 @@ public class Robot {
         mechanisms = Arrays.asList(
                 controlHub,
                 mecanumDrive,
-                arm,
-                claw,
+               // arm,
+               // claw, //TODO:uncomment before merging
                 otos);
     }
     public void init(HardwareMap hwMap) {
