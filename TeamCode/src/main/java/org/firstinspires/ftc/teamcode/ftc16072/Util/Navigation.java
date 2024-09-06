@@ -10,14 +10,14 @@ public class Navigation {
     Robot robot;
 
     static double TRANSLATIONAL_KP = 0.1;
-    static double TRANSLATIONAL_KI = 0;
-    static double TRANSLATIONAL_KD = 0;
+    static double TRANSLATIONAL_KI = 0.1;
+    static double TRANSLATIONAL_KD = 0.001;
     static double TRANSLATIONAL_KF = 0;
     static double TRANSLATIONAL_TOLERANCE_THRESHOLD = 0.5;
 
     static double ROTATIONAL_KP = 0.1;
-    static double ROTATIONAL_KI = 0;
-    static double ROTATIONAL_KD = 0;
+    static double ROTATIONAL_KI = 0.001;
+    static double ROTATIONAL_KD = 0.001;
     static double ROTATIONAL_KF = 0;
     static double ROTATIONAL_TOLERANCE_THRESHOLD = 1;
 
